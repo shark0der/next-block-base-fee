@@ -22,5 +22,5 @@ Displayed info:
 
 ```
 npm i
-npm start
+PROVIDER_URL=http://your-provider-url npm start
 ```
