@@ -20,6 +20,7 @@ async function main () {
 
   const providerURL = process.env.PROVIDER_URL;
   const provider = new ethers.providers.JsonRpcProvider(providerURL);
+  let lastDisplayedBlock;
 
   const log = async () => {
 
@@ -28,12 +29,18 @@ async function main () {
       provider.send('eth_getBlockByNumber', ['pending', false]),
     ]);
 
-    const number = BigNumber.from(latestBlock.number).toNumber();
-    const hash = latestBlock.hash;
+    const { hash, number: numberAsHex } = latestBlock;
+    const number = BigNumber.from(numberAsHex).toNumber();
+
+    if (lastDisplayedBlock === number) {
+      return;
+    }
+
+    lastDisplayedBlock = number;
 
     const gasUsed = BigNumber.from(latestBlock.gasUsed).toNumber();
-    const currentBaseFee = Math.round(latestBlock.baseFeePerGas / 1e9);
-    const nextBaseFee = Math.round(pendingBlock.baseFeePerGas / 1e9);
+    const currentBaseFee = BigNumber.from(latestBlock.baseFeePerGas).div(1e9).toNumber();
+    const nextBaseFee = BigNumber.from(pendingBlock.baseFeePerGas).div(1e9).toNumber();
 
     print(number, hash, gasUsed, currentBaseFee, nextBaseFee);
   };
