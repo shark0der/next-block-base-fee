@@ -1,13 +1,13 @@
 {
-  "name": "gas",
-  "version": "1.0.0",
-  "description": "",
-  "main": "gasprice.js",
+  "name": "next-block-base-fee",
+  "version": "0.1.0",
+  "description": "Show base fee in current and pending block",
+  "main": "index.js",
+  "author": "shark0der",
+  "license": "MIT",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "chalk": "^4.1.2",
     "ethers": "^5.4.6"
